@@ -1,0 +1,80 @@
+<html>
+<body topmargin=50 leftmargin=50 rightmargin=50 bottommargin=50>
+
+<H1> Tools installed on ir.sjtu.edu.cn </H1>
+
+<font color="red"><H3>Sever</H3></font>
+202.120.39.167
+<br>202.120.39.165
+<br>202.120.39.153
+<br>202.120.39.166
+<br>202.120.39.225
+
+<font color="red"><H3>OpenCV</H3></font>
+<p>OpenCV is installed on the server. You need to use "-I/usr/local/include/opencv  -L/usr/local/lib -lcxcore -lcv -lhighgui -lcvaux -lml" in compiling the code. Alternatively, you can also use: "g++ -o my_example my_example.cpp `pkg-config opencv --cflags --libs`".
+
+<font color="red"><h3>Remove Access for Ubuntu</H3></font>
+Check: http://jingyan.baidu.com/article/8ebacdf0cdc64949f75cd555.html
+
+<br>sudo vi /etc/xrdp/sesman.ini  (change MaxSessions from 10 to 100)
+<br>Return to the same session: sudo vi /etc/xrdp/xrdp.ini (change "port=-1" to "port=ask-1")
+<br>sudo service xrdp restart
+
+<font color="red"><H3>VNC</H3></font>
+<p>VNC is used to remotely log in to the server. To set up, firt use putty to login to the server. Run:
+
+<pre> 
+% vnc4server
+</pre>
+You should be able to see something like the following:
+
+<pre>
+You will require a password to access your desktops.
+
+Password:
+Verify:
+Found /usr/share/tightvnc-java for http connections.
+
+New 'X' desktop is ir:1
+
+Creating default startup script /home/yazhang/.vnc/xstartup
+Starting applications specified in /home/yazhang/.vnc/xstartup
+Log file is /home/yazhang/.vnc/ir:1.log
+</pre>
+
+Copy the xstartup file from my directory to yours. Then run: 
+<pre>
+% vnc4server -kill :1.
+% vnc4server
+</pre>
+<p>On your windows PC, download TightVNC: <a href=http://www.tightvnc.com/download/2.0.2/tightvnc-2.0.2-setup.exe>download link</a>. After installation, open TightVNC viewer, type ir.sjtu.edu.cn:N (N is the number you see after "ir:" when you start the vncserver) as the TightVNC Server, then click connect. You should be able see a graphic user interface for it after it.  
+ 
+<p>
+<h4>Note on vnc with ubuntu 14.04</h4>
+~/.vnc/xstartup:
+<pre>
+#!/bin/sh
+[ -x /etc/vnc/xstartup ] && exec /etc/vnc/xstartup
+[ -r $HOME/.Xresources ] && xrdb $HOME/.Xresources
+xsetroot -solid grey
+vncconfig -iconic &
+x-window-manager &
+
+gnome-panel &
+gnome-settings-daemon &
+metacity &
+nautilus -n &
+gnome-terminal &
+</pre>
+
+<h4>Solution for keyboard problem</h4>
+Open dconf-editor, and search for "keybind" (since I was at the physical machine I had no problem typing the "d"). This enabled me to find org->gnome->desktop->wm->keybindings. In the right pane for org->gnome->desktop->wm->keybindings, I then looked for all settings that included <Super> and deleted those settings. Then killed VNC server, started it again,
+
+<font color="red"><H3>Matlab</H3></font>
+Installed at /var/tmp/crack/bin/matlab. 
+
+<font color="red"><h3>SVN config</h3></font>
+http://cg831344.blog.51cto.com/6868324/1574071/
+
+</body>
+</html>
