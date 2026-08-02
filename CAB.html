@@ -604,9 +604,7 @@
                 <h3 class="project-title">跨专科通用医学计算语言模型</h3>
                 <span class="journal-badge">npj Digital Medicine</span>
             </div>
-            <div class="project-desc">
-                针对现有大语言模型在处理多项选择题之外的复杂真实临床任务时表现受限的问题，研究团队构建了涵盖 11 项高级临床任务的综合评估基准 MedS-Bench，以及包含 500 万个实例、覆盖 122 项任务的大规模医学指令微调数据集 MedS-Ins。基于此研发的通用医学大模型 MMedIns-Llama 3，无需进行任务专属训练，即可在少样本或零样本条件下灵活适配不同临床场景。在涉及临床报告总结、治疗规划及医学命名实体识别等复杂任务的验证中，其泛化性能显著超越了现有的顶级闭源与开源基座模型。
-            </div>
+            <div class="project-desc">针对现有大语言模型在处理多项选择题之外的复杂真实临床任务时表现受限的问题，研究团队构建了涵盖 11 项高级临床任务的综合评估基准 MedS-Bench，以及包含 500 万个实例、覆盖 122 项任务的大规模医学指令微调数据集 MedS-Ins。基于此研发的通用医学大模型 MMedIns-Llama 3，无需进行任务专属训练，即可在少样本或零样本条件下灵活适配不同临床场景。在涉及临床报告总结、治疗规划及医学命名实体识别等复杂任务的验证中，其泛化性能显著超越了现有的顶级闭源与开源基座模型。</div>
             <a href="https://www.nature.com/articles/s41746-024-01390-4" target="_blank" class="paper-link">
                 查看论文原文 
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
@@ -622,7 +620,7 @@
                 <h3 class="project-title">KEEP 知识增强病理学基础模型</h3>
                 <span class="journal-badge">Cancer Cell</span>
             </div>
-            <div class="project-desc">针对传统计算病理学视觉-语言大模型缺乏明确医学知识融合的痛点，创新研发了知识增强病理学（KEEP）基础模型。该架构依托涵盖 11,454 种疾病与 139,143 个属性的宏大疾病图谱，将数百万病理图文对重组为对齐疾病本体层级的 143,000 个结构化语义组。在涉及超过 1.4 万张全尺寸数字病理切片（WSI）的 18 个公共基准及 4 个罕见癌症数据集的验证中，KEEP 在病理分割、检测、亚型分类及罕见癌症诊断等核心任务上均展现出超越现有基础模型的通用泛化能力。</div>
+            <div class="project-desc">针对传统计算病理学视觉-语言模型缺乏明确医学知识融合的局限，创新研发了知识增强病理学基础模型（KEEP）。该架构系统整合包含上万种疾病及属性的综合疾病图谱，将数百万病理图文对重组为紧密对齐疾病本体层级的结构化语义组。通过在多级语义空间中深度对齐视觉特征与文本表征，使模型能够精准捕获复杂的病理形态模式与疾病关联。在多个公共基准与机构级罕见癌症数据集的验证中，KEEP 在亚型诊断、病灶检测与肿瘤分割任务中均展现出显著超越现有基础模型的泛化能力。</div>
             <a href="https://www.cell.com/cancer-cell/fulltext/S1535-6108(26)00058-9" target="_blank" class="paper-link">
                 查看论文原文 
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
@@ -638,9 +636,7 @@
                 <h3 class="project-title">PathPT 空间感知病理提示微调框架</h3>
                 <span class="journal-badge">Nature Communications</span>
             </div>
-            <div class="project-desc">
-                针对罕见肿瘤病理数据稀缺与临床专家资源不足的挑战，创新提出了 PathPT 空间感知病理提示微调框架。该框架包含三大核心技术创新：一是采用空间感知视觉聚合模块，显式建模组织区域的长短程依赖关系以捕获复杂形态模式；二是引入任务自适应提示微调机制，以可学习的文本标记替代静态提示，精准对齐病理学语义；三是实现切片级弱监督向图块级（Tile-level）指导的转化，利用视觉-语言基础模型的零样本能力将全切片标签转换为细粒度伪标签。在少样本罕见癌症亚型分类及癌变区域定位任务中展现出卓越的性能与泛化性。
-            </div>
+            <div class="project-desc">针对罕见肿瘤病理数据稀缺与临床专家资源不足的挑战，创新提出了 PathPT 空间感知病理提示微调框架。该框架包含三大核心技术创新：1）采用空间感知视觉聚合模块，显式建模组织区域的长短程依赖关系以捕获复杂形态模式；2）引入任务自适应提示微调机制，以可学习的文本标记替代静态提示，精准对齐病理学语义；3）实现切片级弱监督向图块级指导的转化，利用病理基础模型的零样本能力将全切片标签转换为细粒度伪标签。在少样本罕见癌症亚型分类及癌变区域定位任务中展现出卓越的性能与泛化性。</div>
             <a href="https://www.nature.com/articles/s41467-026-71715-2" target="_blank" class="paper-link">
                 查看论文原文 
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
