@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CAB Center - 生物医药一体化智能中心</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --deep-navy: #091224;
+            --navy-surface: #101c36;
+            --accent-blue: #2563eb;
+            --accent-glow: #3b82f6;
+            --light-blue: #eff6ff;
+            --text-dark: #0f172a;
+            --text-light: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-color: rgba(37, 99, 235, 0.15);
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', sans-serif;
+            color: var(--text-dark);
+            line-height: 1.6;
+            background-color: #f4f7fb;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ========== 隐藏的学术引用标记 ========== */
+        .citation { display: none; }
+
+        /* ========== HEADER ========== */
+        header {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+            background: rgba(9, 18, 36, 0.85);
+            backdrop-filter: saturate(180%) blur(16px); -webkit-backdrop-filter: saturate(180%) blur(16px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 1rem 3rem;
+            transition: var(--transition);
+        }
+
+        .header-container {
+            max-width: 1500px; margin: 0 auto;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem; font-weight: 800; color: var(--text-light);
+            letter-spacing: 0.5px; display: flex; align-items: center; gap: 8px;
+        }
+
+        .logo span {
+            background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            font-size: 1.4rem;
+        }
+
+        nav ul { display: flex; list-style: none; gap: 3rem; }
+        nav a {
+            color: var(--text-muted); text-decoration: none;
+            font-size: 0.95rem; font-weight: 500; transition: var(--transition);
+            position: relative; letter-spacing: 0.5px;
+        }
+
+        nav a::after {
+            content: ''; position: absolute; bottom: -8px; left: 0;
+            width: 0; height: 2px; background: var(--accent-glow); transition: var(--transition);
+        }
+
+        nav a:hover::after, nav a.active::after { width: 100%; }
+        nav a:hover, nav a.active { color: var(--text-light); }
+
+        /* ========== HERO SECTION ========== */
+        .hero {
+            margin-top: 60px; min-height: 95vh;
+            background: radial-gradient(circle at 50% 0%, #101c36 0%, #091224 100%);
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; color: var(--text-light);
+            padding: 6rem 2rem; position: relative; overflow: hidden;
+        }
+
+        .hero::before {
+            content: ''; position: absolute; top: -40%; left: 50%; transform: translateX(-50%);
+            width: 1000px; height: 1000px;
+            background: radial-gradient(circle, rgba(37, 99, 235, 0.12) 0%, transparent 60%);
+            border-radius: 50%; pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative; z-index: 1; max-width: 1200px;
+            margin-bottom: 6rem; animation: fadeUp 1s ease-out forwards;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero h1 {
+            font-size: 4.2rem; font-weight: 800; margin-bottom: 0.5rem;
+            letter-spacing: 2px; line-height: 1.1;
+            background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+
+        .hero h2 {
+            font-size: 1.5rem; font-weight: 400; color: #64748b;
+            margin-bottom: 3.5rem; letter-spacing: 4px; text-transform: uppercase;
+        }
+
+        .hero-slogan-group {
+            display: flex; flex-direction: column; align-items: center; gap: 1.2rem;
+            margin-bottom: 3.5rem;
+        }
+
+        .hero-main-slogan {
+            font-size: 2.2rem; font-weight: 700; color: #f8fafc; 
+            letter-spacing: 1.5px; margin: 0;
+        }
+
+        .hero-tag {
+            display: inline-flex; align-items: center; padding: 8px 24px; border-radius: 30px;
+            background: rgba(37, 99, 235, 0.1); border: 1px solid rgba(37, 99, 235, 0.3);
+            color: #60a5fa; font-size: 0.95rem; font-weight: 700; letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .hero p {
+            font-size: 1.25rem; color: var(--text-muted); font-weight: 400;
+            max-width: 800px; margin: 0 auto; line-height: 1.8;
+        }
+
+        /* 宏观系统范式节点图 */
+        .pipeline {
+            position: relative; z-index: 1;
+            display: flex; justify-content: center; align-items: stretch;
+            gap: 1.2rem; max-width: 1500px; width: 100%; margin: 0 auto;
+        }
+
+        .pipeline-node {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px; padding: 2.5rem 1.5rem;
+            flex: 1; min-width: 220px; text-align: center; transition: var(--transition);
+        }
+
+        .pipeline-node:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(96, 165, 250, 0.5);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(59, 130, 246, 0.1);
+        }
+
+        .pipeline-icon {
+            font-size: 2.2rem; margin-bottom: 1.5rem; display: inline-flex;
+            align-items: center; justify-content: center;
+            background: rgba(37, 99, 235, 0.15); width: 70px; height: 70px;
+            border-radius: 16px; color: #60a5fa;
+        }
+
+        .pipeline-node h3 { font-size: 1.1rem; margin-bottom: 1rem; color: #f8fafc; font-weight: 700; letter-spacing: 0.5px;}
+        .pipeline-node p { font-size: 0.85rem; color: #94a3b8; line-height: 1.7; text-align: justify; }
+
+        .pipeline-arrow {
+            display: flex; align-items: center; color: #3b82f6;
+            font-size: 1.5rem; opacity: 0.4;
+        }
+
+        @media (max-width: 1200px) {
+            .pipeline { flex-wrap: wrap; }
+            .pipeline-node { min-width: 280px; }
+            .pipeline-arrow { display: none; }
+        }
+
+        /* ========== ABOUT SECTION ========== */
+        .section-wrapper { padding: 8rem 3rem; max-width: 1500px; margin: 0 auto; }
+        
+        .section-title {
+            font-size: 2.8rem; font-weight: 800; text-align: center;
+            margin-bottom: 1rem; color: var(--text-dark); letter-spacing: -0.5px;
+        }
+        .section-title span { color: var(--accent-blue); }
+        .section-subtitle { text-align: center; color: #64748b; font-size: 1.2rem; margin-bottom: 5rem; font-weight: 400;}
+
+        .about-content {
+            display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 5rem; align-items: center;
+        }
+
+        .about-text h2 { font-size: 2rem; color: var(--text-dark); margin-bottom: 1.8rem; font-weight: 700; line-height: 1.3;}
+        .about-text p { color: #334155; line-height: 1.8; margin-bottom: 1.5rem; font-size: 1.1rem; text-align: justify;}
+
+        .about-highlights { display: flex; flex-direction: column; gap: 1.5rem; }
+        .highlight-item {
+            display: flex; gap: 1.2rem; padding: 1.5rem; background: #ffffff;
+            border-left: 4px solid var(--accent-blue); border-radius: 12px; transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+        }
+        .highlight-item:hover { transform: translateX(8px); box-shadow: 0 10px 25px rgba(37,99,235,0.08); }
+        .highlight-icon { color: var(--accent-blue); font-weight: 800; font-size: 1.5rem; flex-shrink: 0; }
+        .highlight-item p { margin: 0; font-size: 1rem; color: var(--text-dark); line-height: 1.6;}
+
+        /* ========== MATRIX RESEARCH SECTION (三横三纵) ========== */
+        .research { background: #ffffff; padding: 8rem 3rem; border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0;}
+        
+        .matrix-layout {
+            max-width: 1500px; margin: 0 auto;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; margin-top: 4rem;
+        }
+
+        .matrix-column { display: flex; flex-direction: column; }
+        
+        .matrix-heading {
+            font-size: 1.8rem; color: var(--text-dark); font-weight: 800;
+            margin-bottom: 2.5rem; display: flex; align-items: center; gap: 12px;
+        }
+        
+        .matrix-heading::before {
+            content: ''; display: block; width: 24px; height: 4px; background: var(--accent-blue); border-radius: 2px;
+        }
+
+        .matrix-card {
+            background: #f8fafc; border: 1px solid transparent;
+            border-radius: 20px; padding: 2.5rem; margin-bottom: 2rem;
+            display: flex; align-items: flex-start; gap: 1.8rem;
+            transition: var(--transition);
+        }
+
+        .matrix-card:hover {
+            background: #ffffff; transform: translateY(-5px); border-color: var(--border-color);
+            box-shadow: 0 20px 40px rgba(15, 23, 42, 0.06);
+        }
+
+        .card-icon {
+            font-size: 2.5rem; background: var(--light-blue); color: var(--accent-blue);
+            width: 80px; height: 80px; display: flex; align-items: center; justify-content: center;
+            border-radius: 20px; flex-shrink: 0; font-weight: bold;
+        }
+
+        .card-content h4 { font-size: 1.3rem; color: var(--text-dark); margin-bottom: 1rem; font-weight: 700; letter-spacing: 0.5px;}
+        .card-content p { color: #475569; font-size: 1rem; line-height: 1.7; text-align: justify; margin: 0;}
+
+        /* ========== FLAGSHIP PROJECTS ========== */
+        .projects-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 3rem;
+        }
+
+        .project-card {
+            background: #ffffff; border: 1px solid #e2e8f0; border-radius: 24px;
+            overflow: hidden; transition: var(--transition); display: flex; flex-direction: column;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px); border-color: var(--border-color);
+            box-shadow: 0 25px 50px rgba(15, 23, 42, 0.08);
+        }
+
+        .project-img {
+            height: 240px; background: #f1f5f9;
+            display: flex; align-items: center; justify-content: center;
+            color: #94a3b8; font-size: 0.95rem; font-weight: 600; border-bottom: 1px solid #e2e8f0;
+        }
+
+        .project-content { padding: 3rem 2.5rem; flex: 1; display: flex; flex-direction: column; }
+        .project-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem; }
+        .project-title { font-size: 1.5rem; font-weight: 800; color: var(--text-dark); line-height: 1.3;}
+        .journal-badge {
+            background: var(--text-dark); color: #ffffff;
+            padding: 6px 14px; border-radius: 30px; font-size: 0.8rem; font-weight: 700; white-space: nowrap;
+        }
+        .project-desc { color: #475569; font-size: 1rem; line-height: 1.8; text-align: justify; margin: 0; }
+
+        /* ========== TEAM SECTION ========== */
+        .team-section { background: #f8fafc; }
+        
+        .team-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem;
+        }
+
+        .team-link { text-decoration: none; color: inherit; display: block; }
+        
+        .team-card {
+            background: white; border-radius: 24px; padding: 3rem 2rem;
+            border: 1px solid transparent; transition: var(--transition);
+            text-align: center; position: relative;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+        }
+
+        .team-link:hover .team-card {
+            border-color: var(--border-color); box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08);
+            transform: translateY(-8px);
+        }
+
+        .team-avatar {
+            width: 150px; height: 150px; margin: 0 auto 2rem; border-radius: 50%;
+            background: #f1f5f9; display: flex; align-items: center; justify-content: center;
+            font-size: 0.95rem; color: var(--text-muted); font-weight: 600;
+            border: 3px solid transparent; transition: var(--transition);
+        }
+
+        .team-link:hover .team-avatar { border-color: var(--accent-blue); transform: scale(1.05); background: #ffffff; color: var(--accent-blue);}
+
+        .team-name {
+            font-size: 1.4rem; font-weight: 800; color: var(--text-dark); margin-bottom: 0.5rem;
+            display: flex; align-items: center; justify-content: center; gap: 8px; transition: color 0.3s;
+        }
+
+        .icon-external {
+            width: 18px; height: 18px; opacity: 0; transform: translate(-4px, 4px);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); stroke: var(--accent-blue);
+        }
+
+        .team-link:hover .team-name { color: var(--accent-blue); }
+        .team-link:hover .icon-external { opacity: 1; transform: translate(0, 0); }
+        .team-title { font-size: 1rem; color: #64748b; font-weight: 500; }
+
+        /* ========== CTA & FOOTER ========== */
+        .cta {
+            background: radial-gradient(circle at 50% 100%, #101c36 0%, #091224 100%);
+            color: var(--text-light); padding: 8rem 2rem; text-align: center;
+            position: relative; overflow: hidden; border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .cta-content { max-width: 900px; margin: 0 auto; position: relative; z-index: 1;}
+        .cta h2 { font-size: 3rem; margin-bottom: 1.5rem; font-weight: 800; letter-spacing: -0.5px;}
+        .cta p { font-size: 1.2rem; margin-bottom: 3rem; color: #94a3b8; line-height: 1.8;}
+        
+        .btn {
+            padding: 1.2rem 3rem; border-radius: 40px; font-size: 1.05rem; font-weight: 700;
+            border: none; cursor: pointer; transition: var(--transition); text-decoration: none; display: inline-block;
+        }
+
+        .btn-primary { background: var(--accent-blue); color: white; }
+        .btn-primary:hover {
+            background: #3b82f6; transform: translateY(-3px); box-shadow: 0 15px 30px rgba(37, 99, 235, 0.4);
+        }
+
+        footer {
+            background: #040914; color: #64748b;
+            padding: 4rem 3rem; text-align: center;
+        }
+        .footer-links { display: flex; justify-content: center; gap: 3rem; margin-bottom: 2rem; flex-wrap: wrap;}
+        .footer-links a { color: #94a3b8; text-decoration: none; transition: var(--transition); font-size: 0.95rem; font-weight: 500;}
+        .footer-links a:hover { color: #ffffff; }
+        .footer-copyright { font-size: 0.9rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.05); }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 1024px) {
+            .hero h1 { font-size: 3.5rem; }
+            .hero-main-slogan { font-size: 1.8rem; }
+            .matrix-layout { grid-template-columns: 1fr; gap: 4rem; }
+            .about-content { grid-template-columns: 1fr; gap: 3rem; }
+        }
+        @media (max-width: 768px) {
+            header { padding: 1rem 1.5rem; }
+            header nav { display: none; }
+            .hero { padding: 8rem 1.5rem 6rem; }
+            .hero h1 { font-size: 2.5rem; }
+            .hero h2 { font-size: 1.2rem; }
+            .hero-main-slogan { font-size: 1.5rem; }
+            .section-wrapper, .research { padding: 5rem 1.5rem; }
+            .section-title { font-size: 2.2rem; }
+            .projects-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <div class="header-container">
+            <div class="logo">CAB <span>Center</span></div>
+            <nav>
+                <ul>
+                    <li><a href="#about" class="nav-link">系统范式</a></li>
+                    <li><a href="#research" class="nav-link">三横三纵架构</a></li>
+                    <li><a href="#projects" class="nav-link">代表性成果</a></li>
+                    <li><a href="#team" class="nav-link">交叉梯队</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="hero-content">
+            <!-- 核心焦点对齐：机构名 -> 英文名 -> 愿景Slogan -> 辅助Tag -->
+            <h1>生物医药一体化智能中心</h1>
+            <h2>Center for AI Biomedicine</h2>
+            <div class="hero-slogan-group">
+                <h3 class="hero-main-slogan">解码生命操作系统的可计算范式</h3>
+                <div class="hero-tag">Predict-then-Make 全新科研范式</div>
+            </div>
+            <p>打破“试错”桎梏，跨越碳基与硅基的边界，引领从底层大模型到真实世界转化医学的系统性颠覆创新 <span class="citation">[cite: 3]</span></p>
+        </div>
+
+        <!-- 宏观系统范式节点图 -->
+        <div class="pipeline">
+            <div class="pipeline-node">
+                <div class="pipeline-icon">🕸️</div>
+                <h3>全景多模态生命织网</h3>
+                <p>破除数据孤岛，跨尺度整合真实世界多组学与电子病历，构建高维可计算的生命数据图谱 <span class="citation">[cite: 3]</span>。</p>
+            </div>
+            <div class="pipeline-arrow">➔</div>
+            <div class="pipeline-node">
+                <div class="pipeline-icon">🧠</div>
+                <h3>物理启发的基础大模型</h3>
+                <p>超越纯统计拟合，注入因果推断与慢思考机制，打造深刻理解生命法则的通用算法中枢 <span class="citation">[cite: 2, 3]</span>。</p>
+            </div>
+            <div class="pipeline-arrow">➔</div>
+            <div class="pipeline-node">
+                <div class="pipeline-icon">🧬</div>
+                <h3>多尺度虚拟生命推演</h3>
+                <p>在硅基环境中高通量模拟“细胞到器官”的演化轨迹，实施跨时空反事实推断与精准干预 <span class="citation">[cite: 2, 3]</span>。</p>
+            </div>
+            <div class="pipeline-arrow">➔</div>
+            <div class="pipeline-node">
+                <div class="pipeline-icon">🔄</div>
+                <h3>高通量干湿闭环验证</h3>
+                <p>预测设计直连自动化生物工厂，碳基实验结果实时反哺模型，实现极速认知迭代 <span class="citation">[cite: 3]</span>。</p>
+            </div>
+            <div class="pipeline-arrow">➔</div>
+            <div class="pipeline-node">
+                <div class="pipeline-icon">🎯</div>
+                <h3>群体到个体的转化医学</h3>
+                <p>系统性重塑从靶点发掘到极罕见病诊断的临床链路，驱动新药发现与个性化医疗的革命 <span class="citation">[cite: 2, 3]</span>。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section class="section-wrapper" id="about">
+        <h2 class="section-title">重构生物医药的 <span>“摩尔定律”</span></h2>
+        <p class="section-subtitle">从高耗低效的盲目试错，走向 AI 驱动的工程化系统创新 <span class="citation">[cite: 3]</span></p>
+
+        <div class="about-content">
+            <div class="about-text">
+                <h2>认知放大器：突破人类心智带宽极限</h2>
+                <p>面对超高维度的生命复杂性与呈指数级增长的多组学数据，传统的“假设-实验-验证 (Make-then-Test)”实验范式正将全球新药研发拖入极低效率的“伊隆定律 (Eroom's Law)”泥潭 <span class="citation">[cite: 3]</span>。</p>
+                <p>CAB 中心依托上海交通大学及 13 家顶尖附属三甲医院的 TB 级真实世界数据壁垒 <span class="citation">[cite: 3]</span>，致力于将 AI 作为突破人类心智带宽的认知放大器。我们不满足于孤立的算法模型，而是构建了涵盖“可计算知识引擎、时空基础大模型、自动化生物验证”的统一系统范式 <span class="citation">[cite: 3]</span>。这一范式让超高维度的硅基预测 (Predict) 得以被真实的碳基世界高速检验 (Make)，从根本上将生命科学探索升级为一门精密、可控的工程学科 <span class="citation">[cite: 2, 3]</span>。</p>
+            </div>
+            <div class="about-highlights">
+                <div class="highlight-item">
+                    <div class="highlight-icon">✓</div>
+                    <div><p><strong>顶尖临床数据确权验证</strong><br>背靠千万级全周期患者真实世界队列，提供无可替代的模型训练与干预效果基准 <span class="citation">[cite: 3]</span>。</p></div>
+                </div>
+                <div class="highlight-item">
+                    <div class="highlight-icon">✓</div>
+                    <div><p><strong>可审计的因果逻辑推断</strong><br>抛弃黑箱，部署具有白盒知识底座约束与 Agent 反思纠错机制的临床级可信任网络 <span class="citation">[cite: 3]</span>。</p></div>
+                </div>
+                <div class="highlight-item">
+                    <div class="highlight-icon">✓</div>
+                    <div><p><strong>干湿融合的极速编译链</strong><br>打破计算科学家与生物学家的物理壁垒，算法推理直驱实验平台，缩短验证反馈环路 <span class="citation">[cite: 3]</span>。</p></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MATRIX RESEARCH SECTION ("三横三纵") -->
+    <section class="research" id="research">
+        <div class="section-wrapper" style="padding: 0;">
+            <h2 class="section-title">中心战略 <span>“三横三纵” 体系</span></h2>
+            <p class="section-subtitle">打造赋能一切生命科学探索的底层操作系统与垂直应用矩阵</p>
+
+            <div class="matrix-layout">
+                
+                <!-- 横向：三大底层操作系统维度 -->
+                <div class="matrix-column">
+                    <h3 class="matrix-heading">横向基座 · 生命操作系统层</h3>
+                    
+                    <div class="matrix-card">
+                        <div class="card-icon">📚</div>
+                        <div class="card-content">
+                            <h4>全维生命可计算图谱与知识引擎</h4>
+                            <p>超越静态数据库的界限。将海量多模态数据（基因组、蛋白组、高分辨率医学影像、长文本临床病历）映射至统一语义空间。通过白盒化因果链接，构建具备多跳推理能力与全域可溯源性的底层知识底座，为 AI 赋予严谨的医学常识与逻辑锚点 <span class="citation">[cite: 3]</span>。</p>
+                        </div>
+                    </div>
+
+                    <div class="matrix-card">
+                        <div class="card-icon">🌐</div>
+                        <div class="card-content">
+                            <h4>跨尺度时空演化基础大模型</h4>
+                            <p>构建真正理解生物物理法则的计算枢纽。从破译高达 98% 非编码暗基因组的单细胞动态，到微观组织演化，再至宏观数字孪生患者模型。支持在多维潜空间中执行高通量“硅基扰动”，精准预测在未见过的靶点或罕见条件下的反事实系统演化轨迹 <span class="citation">[cite: 2, 3]</span>。</p>
+                        </div>
+                    </div>
+
+                    <div class="matrix-card">
+                        <div class="card-icon">🔄</div>
+                        <div class="card-content">
+                            <h4>闭环驱动的硅基-碳基敏捷编译体系</h4>
+                            <p>像编译代码一样编译生命。将 AI 设计的扰动序列或分子结构作为输入指令，无缝下发至自动化的 Bio-Foundry 进行高通量实体实验。通过捕获真实细胞或器官模型的转录组响应与临床表型反馈，强力驱动计算基础大模型的持续进化与能力跃升 <span class="citation">[cite: 3]</span>。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 纵向：三大超级应用场景 -->
+                <div class="matrix-column">
+                    <h3 class="matrix-heading">纵向深耕 · 转化医学应用层</h3>
+                    
+                    <div class="matrix-card">
+                        <div class="card-icon">🧬</div>
+                        <div class="card-content">
+                            <h4>罕见病全周期智能化管理</h4>
+                            <p>彻底终结“诊断漫游”。从基于多组学的产前阻断预警，到依托异构多智能体协作完成的极罕见病跨科室精准确诊 <span class="citation">[cite: 3]</span>。未来更将结合底层算法设计核酸药物（如 ASO），推动针对“N=1”个体的极罕见病治疗方案从孤立个案向可重复的工业化流程转化 <span class="citation">[cite: 2, 3]</span>。</p>
+                        </div>
+                    </div>
+
+                    <div class="matrix-card">
+                        <div class="card-icon">🎯</div>
+                        <div class="card-content">
+                            <h4>真实世界驱动的逆向靶标发掘</h4>
+                            <p>重构药物发现第一步。摒弃从体外实验开始的正向盲选，直接从千万级临床电子病历、药物警戒数据库及人群遗传序列中，提取因果相关的不良反应或意外保护性信号。通过底层大模型的溯源推理，精准发掘天然具备真实世界疗效证据的高置信度疾病新靶标 <span class="citation">[cite: 3]</span>。</p>
+                        </div>
+                    </div>
+
+                    <div class="matrix-card">
+                        <div class="card-icon">🏥</div>
+                        <div class="card-content">
+                            <h4>肿瘤多维演化与数字孪生干预</h4>
+                            <p>化解肿瘤高度异质性导致的精准医疗困境。前端利用影像多模态融合技术前置极早期筛查窗口；中端依托病理基础大模型直接预测分子靶向标志物；后端构建患者专属的数字孪生模型，在硅基中推演多线化疗与免疫方案的长期应答结局，输出个性化最优决策方案 <span class="citation">[cite: 3]</span>。</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FLAGSHIP PROJECTS -->
+    <section class="section-wrapper" id="projects" style="background: #ffffff; max-width: 100%; padding: 8rem 3rem;">
+        <div style="max-width: 1500px; margin: 0 auto;">
+            <h2 class="section-title">代表性 <span>成果</span></h2>
+            <p class="section-subtitle">基于系统范式孵化的顶级交叉应用，持续拓展全球生命科学研究的边界 <span class="citation">[cite: 3]</span></p>
+
+            <div class="projects-grid">
+                <!-- DeepRare -->
+                <div class="project-card">
+                    <div class="project-img">Image Space: DeepRare Framework</div>
+                    <div class="project-content">
+                        <div class="project-header">
+                            <h3 class="project-title">DeepRare 多智能体推理架构</h3>
+                            <span class="journal-badge">Nature</span>
+                        </div>
+                        <div class="project-desc">首创基于 LLM 的异构多智能体协同（Agentic）诊断范式 <span class="citation">[cite: 3]</span>。该系统高度拟合真实世界临床医疗专家组（MDT）的“慢思考”机制，通过结合检索增强（RAG）对极其复杂的长尾异质化表型进行跨科室推演，输出可审计的循证诊断证据链。在涉及数千种罕见病的评估中，诊断准确率超越顶级专家，成为打破“数据极度稀缺”壁垒的关键底层引擎 <span class="citation">[cite: 3]</span>。</div>
+                    </div>
+                </div>
+
+                <!-- KEEP -->
+                <div class="project-card">
+                    <div class="project-img">Image Space: KEEP Early Detection</div>
+                    <div class="project-content">
+                        <div class="project-header">
+                            <h3 class="project-title">KEEP 全癌种知识增强早筛</h3>
+                            <span class="journal-badge">Cancer Cell</span>
+                        </div>
+                        <div class="project-desc">瞄准“发现即晚期”的严峻肿瘤筛查痛点，构建了深度融合临床影像与多组学特征的早期预警基础模型 <span class="citation">[cite: 3]</span>。该架构特别针对胰腺癌、肺癌等高致死难治癌种，实现了在大规模无症状群体中的超前低成本病灶捕获，以颠覆性的灵敏度前置了干预时间窗，极大提升了患者的五年生存预期与可切除率 <span class="citation">[cite: 3]</span>。</div>
+                    </div>
+                </div>
+
+                <!-- KAD -->
+                <div class="project-card">
+                    <div class="project-img">Image Space: KAD Architecture</div>
+                    <div class="project-content">
+                        <div class="project-header">
+                            <h3 class="project-title">KAD 跨模态视觉-语言大模型</h3>
+                            <span class="journal-badge">Nature Communications</span>
+                        </div>
+                        <div class="project-desc">国际领先的知识增强型医疗多模态预训练网络。为解决大模型在医学自然语言生成中的幻觉与语义漂移问题，创新性地将涵盖海量病理及解剖结构的三元组知识图谱硬编码至视觉-文本联合特征空间中。模型在零样本（Zero-shot）条件下面对未见过的复杂放射影像时，依然能提取精确特征并自主生成专业级诊断报告。</div>
+                    </div>
+                </div>
+
+                <!-- RadFM -->
+                <div class="project-card">
+                    <div class="project-img">Image Space: RadFM Foundation</div>
+                    <div class="project-content">
+                        <div class="project-header">
+                            <h3 class="project-title">RadFM 三维放射学基础模型</h3>
+                            <span class="journal-badge">Nature Communications</span>
+                        </div>
+                        <div class="project-desc">专为高维复杂结构设计的开创性通用医疗视觉大模型。利用千万量级的真实 2D/3D 临床影像与配对文本构建无监督预训练底座。一举打破了传统深度学习在三维器官空间表征及跨模态对齐上的巨额算力瓶颈，在从自动诊断分类、病灶分割到高度复杂的医学视觉逻辑问答等多项下游任务中，展现出惊艳的通用表征能力。</div>
+                    </div>
+                </div>
+
+                <!-- Generalist LLM -->
+                <div class="project-card">
+                    <div class="project-img">Image Space: Generalist Medical LLM</div>
+                    <div class="project-content">
+                        <div class="project-header">
+                            <h3 class="project-title">多面手医学通用语言大模型</h3>
+                            <span class="journal-badge">npj Digital Medicine</span>
+                        </div>
+                        <div class="project-desc">旨在破除专科 AI 系统“只见树木不见森林”孤岛效应的统一认知框架。该模型具备行业顶尖的复杂非结构化长病历阅读理解能力以及跨领域医学知识综合推理能力。依靠极少样本（Few-shot）条件下的惊人适配性，实现了从初诊症状分析到终局确诊方案推演的临床路径极速压缩，是智能问诊与决策的核心基建。</div>
+                    </div>
+                </div>
+
+                <!-- PathPT -->
+                <div class="project-card">
+                    <div class="project-img">Image Space: PathPT Pipeline</div>
+                    <div class="project-content">
+                        <div class="project-header">
+                            <h3 class="project-title">PathPT 病理基础空间大模型</h3>
+                            <span class="journal-badge">Nature Communications</span>
+                        </div>
+                        <div class="project-desc">建立在海量十亿像素级全片扫描（WSI）上的核心数字病理大模型 <span class="citation">[cite: 3]</span>。不仅在泛癌种宏观亚型分类上极具鲁棒性，更通过引入空间感知聚合机制，实现了直接从病理切片逆向预测诸如 MSI、TMB 等微观分子级标志物特征。该成果成功打通了“视觉表型直达靶向决策”的技术通道，颠覆了传统肿瘤预后评估的时间成本 <span class="citation">[cite: 3]</span>。</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TEAM SECTION -->
+    <section class="section-wrapper team-section" id="team" style="max-width: 100%;">
+        <div style="max-width: 1500px; margin: 0 auto;">
+            <h2 class="section-title">交叉 <span>梯队</span></h2>
+            <p class="section-subtitle">汇聚人工智能、结构生物与临床医学领域的顶尖头脑，共享同一个颠覆性愿景 <span class="citation">[cite: 3]</span></p>
+
+            <div class="team-grid">
+                <a href="#" target="_blank" class="team-link">
+                    <div class="team-card">
+                        <div class="team-avatar">Portrait Placeholder</div>
+                        <h3 class="team-name">王延峰<svg class="icon-external" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></h3>
+                        <div class="team-title">教授</div>
+                    </div>
+                </a>
+
+                <a href="#" target="_blank" class="team-link">
+                    <div class="team-card">
+                        <div class="team-avatar">Portrait Placeholder</div>
+                        <h3 class="team-name">张娅<svg class="icon-external" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></h3>
+                        <div class="team-title">教授</div>
+                    </div>
+                </a>
+
+                <a href="#" target="_blank" class="team-link">
+                    <div class="team-card">
+                        <div class="team-avatar">Portrait Placeholder</div>
+                        <h3 class="team-name">谢伟迪<svg class="icon-external" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></h3>
+                        <div class="team-title">副教授</div>
+                    </div>
+                </a>
+
+                <a href="#" target="_blank" class="team-link">
+                    <div class="team-card">
+                        <div class="team-avatar">Portrait Placeholder</div>
+                        <h3 class="team-name">周晓<svg class="icon-external" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></h3>
+                        <div class="team-title">副教授</div>
+                    </div>
+                </a>
+
+                <a href="#" target="_blank" class="team-link">
+                    <div class="team-card">
+                        <div class="team-avatar">Portrait Placeholder</div>
+                        <h3 class="team-name">张小嫚<svg class="icon-external" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></h3>
+                        <div class="team-title">副教授</div>
+                    </div>
+                </a>
+
+                <a href="#" target="_blank" class="team-link">
+                    <div class="team-card">
+                        <div class="team-avatar">Portrait Placeholder</div>
+                        <h3 class="team-name">吴超逸<svg class="icon-external" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg></h3>
+                        <div class="team-title">助理教授</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA SECTION -->
+    <section class="cta" id="join">
+        <div class="cta-content">
+            <h2>为生命编程，向未知航行</h2>
+            <p>我们长期招收立志于用 AI 颠覆传统科研边界的博士后、博士生与跨界研究者。<br>如果您渴望站在人类认知的前沿，打造驱动未来十年的生命科学计算基座，CAB 中心将是您的终极平台 <span class="citation">[cite: 3]</span>。</p>
+            <div style="margin-top: 3rem;">
+                <a href="mailto:career@cab-center.org" class="btn btn-primary">加入我们的航程</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-links">
+            <a href="#about">系统范式</a>
+            <a href="#research">三横三纵架构</a>
+            <a href="#projects">代表性成果</a>
+            <a href="#team">交叉梯队</a>
+        </div>
+        <div class="footer-copyright">
+            © 2026 CAB Center · 生物医药一体化智能中心 · 保留所有权利
+        </div>
+    </footer>
+
+    <script>
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const headerOffset = 80;
+                    const elementPosition = target.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                    window.scrollTo({ top: offsetPosition, behavior: "smooth" });
+                }
+            });
+        });
+
+        // 滚动状态激活
+        window.addEventListener('scroll', () => {
+            let current = '';
+            const sections = document.querySelectorAll('section[id]');
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 150) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').slice(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+            
+            const header = document.querySelector('header');
+            if(window.scrollY > 50) {
+                header.style.background = 'rgba(9, 18, 36, 0.95)';
+                header.style.borderBottom = '1px solid rgba(255, 255, 255, 0.1)';
+            } else {
+                header.style.background = 'rgba(9, 18, 36, 0.85)';
+                header.style.borderBottom = '1px solid rgba(255, 255, 255, 0.05)';
+            }
+        });
+    </script>
+</body>
+</html>
