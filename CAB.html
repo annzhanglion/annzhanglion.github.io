@@ -265,12 +265,20 @@
             box-shadow: 0 25px 50px rgba(15, 23, 42, 0.08);
         }
 
+        /* 1. 控制图片容器的尺寸 */
         .project-img {
-            height: 240px; background: #f1f5f9;
-            display: flex; align-items: center; justify-content: center;
-            color: #94a3b8; font-size: 0.95rem; font-weight: 600; border-bottom: 1px solid #e2e8f0;
+            width: 100%;
+            height: 180px; /* 你可以根据需要调整这个高度，比如 160px 或 200px */
+            overflow: hidden; /* 超出容器的部分自动裁剪隐藏 */
         }
 
+        /* 2. 让内部的 img 标签填满容器并保持比例 */
+        .project-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* 核心属性：等比例缩放并填满容器，不会导致图片拉伸或变形 */
+        }
+        
         .project-content { padding: 3rem 2.5rem; flex: 1; display: flex; flex-direction: column; }
         .project-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem; }
         .project-title { font-size: 1.5rem; font-weight: 800; color: var(--text-dark); line-height: 1.3;}
