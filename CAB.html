@@ -209,6 +209,99 @@
         .highlight-icon { color: var(--accent-blue); font-weight: 800; font-size: 1.5rem; flex-shrink: 0; }
         .highlight-item p { margin: 0; font-size: 1rem; color: var(--text-dark); line-height: 1.6;}
 
+
+                /* 外层容器 */
+        .about-section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+        
+        /* 顶部文本区：控制最大宽度，保持极佳的学术阅读行宽 */
+        .about-text-header {
+            max-width: 900px;
+            margin: 0 auto 50px auto;
+            text-align: left;
+        }
+        
+        .about-text-header h2 {
+            font-size: 32px;
+            font-weight: 700;
+            color: #111;
+            margin-bottom: 24px;
+            letter-spacing: -0.5px;
+        }
+        
+        .about-text-header p {
+            font-size: 16px;
+            line-height: 1.85;
+            color: #4a5568;
+            margin-bottom: 20px;
+        }
+        
+        /* 底部三列网格布局 */
+        .about-highlights-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* 平行三列 */
+            gap: 24px; /* 列与列之间的间距 */
+        }
+        
+        /* 单个卡片样式（继承原有的高级质感） */
+        .highlight-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 32px 24px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.02);
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        .highlight-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.05);
+        }
+        
+        /* 图标样式 */
+        .highlight-card .highlight-icon {
+            width: 36px;
+            height: 36px;
+            background: #eff6ff;
+            color: #2563eb;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        
+        /* 卡片内标题与文字 */
+        .highlight-card h3 {
+            font-size: 17px;
+            font-weight: 600;
+            color: #1a202c;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+        
+        .highlight-card p {
+            font-size: 14px;
+            line-height: 1.7;
+            color: #4a5568;
+            margin: 0;
+        }
+        
+        /* 响应式适配：在平板或手机上自动变为单列垂直排列 */
+        @media (max-width: 900px) {
+            .about-highlights-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
         /* ========== MATRIX RESEARCH SECTION (三横三纵) ========== */
         .research { background: #ffffff; padding: 8rem 3rem; border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0;}
         
