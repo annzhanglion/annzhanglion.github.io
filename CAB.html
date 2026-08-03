@@ -309,13 +309,24 @@
             transform: translateY(-8px);
         }
 
-        .team-avatar {
-            width: 150px; height: 150px; margin: 0 auto 2rem; border-radius: 50%;
-            background: #f1f5f9; display: flex; align-items: center; justify-content: center;
-            font-size: 0.95rem; color: var(--text-muted); font-weight: 600;
-            border: 3px solid transparent; transition: var(--transition);
-        }
 
+        /* 1. 限制头像容器的尺寸和溢出隐藏 */
+        .team-avatar {
+            width: 100px;   /* 根据您的设计调整头像的宽度 */
+            height: 100px;  /* 根据您的设计调整头像的高度（如果需要正方形/圆形，请保持宽高一致） */
+            border-radius: 50%; /* 如果想要圆形的团队头像，保留这行；若要方形可删掉 */
+            overflow: hidden;   /* 核心：将超出容器的部分裁切掉，解决溢出和遮挡问题 */
+            margin: 0 auto 15px auto; /* 居中显示，并与下方的名字拉开间距 */
+        }
+        
+        /* 2. 让内部的 img 填满容器并保持比例 */
+        .team-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;  /* 核心：等比例缩放并填满容器，防止图片被压扁或变形 */
+            display: block;     /* 消除图片底部默认的空白间隙 */
+        }
+        
         .team-link:hover .team-avatar { border-color: var(--accent-blue); transform: scale(1.05); background: #ffffff; color: var(--accent-blue);}
 
         .team-name {
