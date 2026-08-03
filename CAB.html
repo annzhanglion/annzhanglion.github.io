@@ -422,12 +422,13 @@
 
 
         /* 1. 限制头像容器的尺寸和溢出隐藏 */
-        .team-avatar {
-            width: 100px;   /* 根据您的设计调整头像的宽度 */
-            height: 100px;  /* 根据您的设计调整头像的高度（如果需要正方形/圆形，请保持宽高一致） */
-            border-radius: 50%; /* 如果想要圆形的团队头像，保留这行；若要方形可删掉 */
-            overflow: hidden;   /* 核心：将超出容器的部分裁切掉，解决溢出和遮挡问题 */
-            margin: 0 auto 15px auto; /* 居中显示，并与下方的名字拉开间距 */
+      .team-avatar {
+            width: 130px;   /* 将宽度调大，您可以根据喜好改到 130px ~ 150px */
+            height: 130px;  /* 高度保持一致，确保是正圆 */
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto 20px auto; /* 适当拉开与下方名字的间距 */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* 顺便加个淡淡的阴影，质感会更好 */
         }
         
         /* 2. 让内部的 img 填满容器并保持比例 */
