@@ -192,19 +192,6 @@
         .section-title span { color: var(--accent-blue); }
         .section-subtitle { text-align: center; color: #64748b; font-size: 1.2rem; margin-bottom: 5rem; font-weight: 400;}
 
-      /* 1. 调整父级网格的比例与对齐方式 */
-        .about-content {
-            display: grid;
-            /* 调整比例：左边设为 1fr，右边设为 1.2fr（或 1.1fr）。
-               这样左边稍微窄一点，文字会自动多换行，增加纵向高度，填补空白感 */
-            grid-template-columns: 1fr 1.2fr; 
-            gap: 48px; /* 左右两栏的间距 */
-            align-items: center; /* 关键：让左侧文本和右侧卡片整体在垂直方向居中对齐 */
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 40px 20px;
-        }
-
         /* 2. 优化左侧文本的视觉分量，让它显得更有“厚度” */
         .about-text {
             padding-right: 10px;
@@ -502,7 +489,19 @@
             .hero h1 { font-size: 3.5rem; }
             .hero-main-slogan { font-size: 1.8rem; }
             .matrix-layout { grid-template-columns: 1fr; gap: 4rem; }
-            .about-content { grid-template-columns: 1fr; gap: 3rem; }
+                  /* 1. 调整父级网格的比例与对齐方式 */
+            .about-content {
+                display: grid;
+                /* 调整比例：左边设为 1fr，右边设为 1.2fr（或 1.1fr）。
+                   这样左边稍微窄一点，文字会自动多换行，增加纵向高度，填补空白感 */
+                grid-template-columns: 1fr 1.2fr; 
+                gap: 48px; /* 左右两栏的间距 */
+                align-items: center; /* 关键：让左侧文本和右侧卡片整体在垂直方向居中对齐 */
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 40px 20px;
+            }
+    
         }
         @media (max-width: 768px) {
             header { padding: 1rem 1.5rem; }
